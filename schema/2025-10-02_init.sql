@@ -1,0 +1,31 @@
+CREATE DATABASE IF NOT EXISTS mydb
+  DEFAULT CHARACTER SET utf8mb4
+  DEFAULT COLLATE utf8mb4_unicode_ci;
+
+USE mydb;
+
+-- Students
+CREATE TABLE IF NOT EXISTS students (
+  id BIGINT PRIMARY KEY AUTO_INCREMENT,
+  name VARCHAR(100) NOT NULL,
+  email VARCHAR(255) UNIQUE,
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+) ENGINE=InnoDB;
+
+-- Courses
+CREATE TABLE IF NOT EXISTS courses (
+  id BIGINT PRIMARY KEY AUTO_INCREMENT,
+  code VARCHAR(20) UNIQUE NOT NULL,
+  title VARCHAR(200) NOT NULL,
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+) ENGINE=InnoDB;
+
+-- Enrollments (many-to-many)
+CREATE TABLE IF NOT EXISTS enrollments (
+  student_id BIGINT NOT NULL,
+  course_id  BIGINT NOT NULL,
+  enrolled_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (student_id, course_id),
+  CONSTRAINT fk_enroll_student FOREIGN KEY (student_id) REFERENCES students(id),
+  CONSTRAINT fk_enroll_course  FOREIGN KEY (course_id)  REFERENCES courses(id)
+) ENGINE=InnoDB;

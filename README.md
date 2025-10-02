@@ -15,3 +15,10 @@ See [`schema/2025-10-02_init.sql`](schema/2025-10-02_init.sql).
 
 ```bash
 mysql -h $DB_HOST -u $DB_USER -p $DB_NAME < seed/dev_seed.sql
+
+## Quick start
+
+1. **Create `.env` from the template**
+   ```bash
+   cp .env.example .env
+   # edit .env and enter the real password locally (do NOT commit .env)
